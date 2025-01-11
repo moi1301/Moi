@@ -10,7 +10,7 @@ import json
 from urllib.parse import urlencode, parse_qsl
 
 # Configuración para la gestión de dependencias
-LIBRARIES_ZIP_URL = "https://moi1301/Moi/bibliotecas.zip"
+LIBRARIES_ZIP_URL = "https://moi1301.github.io/Moi/bibliotecas.zip"
 LIBRARIES_ZIP_PATH = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'bibliotecas.zip')
 LIBRARIES_PATH = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'lib')
 FIRST_RUN_FILE = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), "first_run.txt")
