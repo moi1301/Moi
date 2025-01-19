@@ -1,4 +1,4 @@
-<addon id="plugin.video.Moi" name="Acestream Mo" version="1.1.0" provider-name="Moi">
+<addon id="plugin.video.Moi" name="Acestream Moi" version="1.1.0" provider-name="Moi">
 <extension point="xbmc.addon.repository" name="Repository AC">
 <dir>
 <info compressed="false">https://raw.githubusercontent.com/moi1301/Moi/master/repo/zips/addons.xml</info>
