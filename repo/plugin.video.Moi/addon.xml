@@ -1,0 +1,13 @@
+<addon id="plugin.video.Moi" version="1.0.0" name="Moi acestream" provider-name="Moi">
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.addon.metadata">
+        <summary>Lista de canales AceStream</summary>
+        <description>Descripcion que no se que poner porque es una prueba</description>
+        <platform>all</platform>
+        <assets><icon>icon.png</icon></assets> </extension>
+</addon>
