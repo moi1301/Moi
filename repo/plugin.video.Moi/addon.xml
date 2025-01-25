@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.MoiStream" version="1.0" name="MoiStream Canales" provider-name="Moi">
+<addon id="plugin.video.Moi" version="1.0" name="MoiStream Canales" provider-name="Moi">
     <extension point="xbmc.python.pluginsource" library="moi.py">
         <provides>video</provides>
     </extension>
