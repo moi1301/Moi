@@ -197,7 +197,7 @@ def list_channels(category):
     xbmcplugin.endOfDirectory(addon_handle)
 
 def obtener_eventos_desde_html():
-    url = "http://141.145.210.168"
+    url = "https://eventos-liartvercelapp.vercel.app"
     try:
         response = requests.get(url)
         response.raise_for_status()
