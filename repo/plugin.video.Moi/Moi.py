@@ -206,12 +206,12 @@ def obtener_eventos_desde_html():
         tabla_eventos = soup.find('table', class_='styled-table')
         for fila in tabla_eventos.find_all('tr')[1:]:
             columnas = fila.find_all('td')
-            if len(columnas) >= 5:
-                hora = columnas[0].text.strip()
-                categoria = columnas[1].text.strip()
-                equipo_1 = columnas[2].text.strip()
-                equipo_2 = columnas[3].text.strip()
-                enlaces = [{"name": enlace.text.strip(), "url": enlace['href']} for enlace in columnas[4].find_all('a')]
+            if len(columnas) >= 6:
+                hora = columnas[1].text.strip()
+                categoria = columnas[2].text.strip()
+                equipo_1 = columnas[3].text.strip()
+                equipo_2 = columnas[4].text.strip()
+                enlaces = [{"name": enlace.text.strip(), "url": enlace['href']} for enlace in columnas[5].find_all('a')]
                 if enlaces:
                     eventos.append({
                         'hora': hora,
