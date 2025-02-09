@@ -1,4 +1,4 @@
-<addon id="plugin.video.Moi" version="2.0.0" name="Moi Stream" provider-name="Moi">
+<addon id="plugin.video.Moi" version="2.0.1" name="Moi Stream" provider-name="Moi">
     <extension point="xbmc.python.pluginsource" library="Moi.py">
         <provides>video</provides>
     </extension>
