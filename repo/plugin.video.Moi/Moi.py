@@ -7,6 +7,7 @@ import os
 import urllib.request
 import zipfile
 import json
+import requests
 from urllib.parse import urlencode, parse_qsl
 
 # Configuración para la gestión de dependencias
@@ -197,13 +198,16 @@ def list_channels(category):
     xbmcplugin.endOfDirectory(addon_handle)
 
 def obtener_eventos_desde_html():
-    url = "https://eventos-liartvercelapp.vercel.app"
+    url = "https://eventos-liartvercelapp.vercel.app/"
+    user_agent = "Mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/58.0.3029.110 safari/537.3"
+    headers = {"User-Agent": user_agent}
+    
     try:
-        response = requests.get(url)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         eventos = []
-        tabla_eventos = soup.find('table', class_='styled-table')
+        tabla_eventos = soup.find('body')
         for fila in tabla_eventos.find_all('tr')[1:]:
             columnas = fila.find_all('td')
             if len(columnas) >= 6:
@@ -218,8 +222,9 @@ def obtener_eventos_desde_html():
                         'categoria': categoria,
                         'evento': f"{equipo_1} vs {equipo_2}",
                         'enlaces': enlaces
-                    })
+                        })
         return eventos
+    
     except requests.exceptions.RequestException as e:
         xbmcgui.Dialog().notification("Error", f"Error al obtener eventos: {e}", xbmcgui.NOTIFICATION_ERROR)
         return []
