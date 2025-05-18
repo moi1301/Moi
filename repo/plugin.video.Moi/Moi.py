@@ -7,8 +7,8 @@ import os
 import urllib.request
 import zipfile
 import json
+import requests
 from urllib.parse import urlencode, parse_qsl
-import datetime
 
 # Configuración para la gestión de dependencias
 LIBRARIES_ZIP_URL = "https://moi1301.github.io/Moi/bibliotecas.zip"
@@ -196,51 +196,35 @@ def list_channels(category):
             list_item.setInfo("video", {"title": channel["name"]})
             xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=list_item, isFolder=False)
     xbmcplugin.endOfDirectory(addon_handle)
-    
-# Función para obtener eventos desde la web
+
 def obtener_eventos_desde_html():
-    # funcion para definir enlaces de reproduccion
-    def get_enlaces(enlaces):
-        ace_lace=[{"name": enlace.text.strip().upper(), "url": enlace['title']} for enlace in columnas[4].find_all('li')]
-        return ace_lace
-    
-    url = "https://www.futbolenlatv.es/deporte/"
+    url = "https://eventos-liartvercelapp.vercel.app/"
     user_agent = "Mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/58.0.3029.110 safari/537.3"
     headers = {"User-Agent": user_agent}
-
+    
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, 'html.parser')
         eventos = []
-        tabla_eventos = soup.find('tbody')
-        
-        # Comprobamos si la fecha de los eventos es la actual
-        now = datetime.datetime.now()
-        a = 0
-        enlaces=0
-        fechas = soup.find_all('tr', class_="cabeceraTabla")
-        for fecha in fechas:
-            dia = str(fecha)[-20:-10]
-            if dia == now.strftime("%d/%m/%Y"):   
-                a += 1
-                # Si la fecha es la actual, obtenemos los eventos
-                for fila in tabla_eventos.find_all('tr')[1:]:
-                    columnas = fila.find_all('td')
-                    if len(columnas) >= 5:
-                        hora = columnas[0].text.strip()
-                        categoria = columnas[1].text.strip().upper()
-                        equipo_1 = columnas[2].text.strip().upper()
-                        equipo_2 = columnas[3].text.strip().upper()
-                        enlaces = get_enlaces(enlaces)
-                        eventos.append({
+        tabla_eventos = soup.find('body')
+        for fila in tabla_eventos.find_all('tr')[1:]:
+            columnas = fila.find_all('td')
+            if len(columnas) >= 6:
+                hora = columnas[1].text.strip()
+                categoria = columnas[2].text.strip()
+                equipo_1 = columnas[3].text.strip()
+                equipo_2 = columnas[4].text.strip()
+                enlaces = [{"name": enlace.text.strip(), "url": enlace['href']} for enlace in columnas[5].find_all('a')]
+                if enlaces:
+                    eventos.append({
                         'hora': hora,
                         'categoria': categoria,
                         'evento': f"{equipo_1} vs {equipo_2}",
                         'enlaces': enlaces
                         })
-                return eventos
-
+        return eventos
+    
     except requests.exceptions.RequestException as e:
         xbmcgui.Dialog().notification("Error", f"Error al obtener eventos: {e}", xbmcgui.NOTIFICATION_ERROR)
         return []
