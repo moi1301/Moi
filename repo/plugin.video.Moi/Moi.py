@@ -7,7 +7,6 @@ import os
 import urllib.request
 import zipfile
 import json
-import requests
 from urllib.parse import urlencode, parse_qsl
 
 # Configuración para la gestión de dependencias
