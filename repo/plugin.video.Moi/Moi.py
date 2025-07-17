@@ -197,7 +197,7 @@ def list_channels(category):
     xbmcplugin.endOfDirectory(addon_handle)
 
 def obtener_eventos_desde_html():
-    url = "https://eventos-liartvercelapp.vercel.app/"
+    url = "http://eventos-liartvercelapp.vercel.app/"
     user_agent = "Mozilla/5.0 (windows nt 10.0; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/58.0.3029.110 safari/537.3"
     headers = {"User-Agent": user_agent}
     
